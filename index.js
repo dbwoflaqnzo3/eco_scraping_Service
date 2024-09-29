@@ -12,18 +12,12 @@ app.set("views", path.join(__dirname, "/views"));
 // 테스트
 const url = "https://example.com";
 const scraper = new NewsScraper(url);
-const test = async () => {
-  const result = await scraper.getContent();
-  return result;
-};
-
-app.get("/", (req, res) => {
-  const content = test(); // await 추가
-  res.render("index", { content });
+app.get("/", async (req, res) => {
+  const { title, content } = await scraper.getContent();
+  res.render("index", { title, content });
 });
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
-/// dasdasdasdasdasdasdasdasdasdasd
